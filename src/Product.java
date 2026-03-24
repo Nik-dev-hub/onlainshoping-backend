@@ -6,7 +6,7 @@ public abstract class Product {
     private String title;
     private double price;
     private String desc;
-    private HashMap<String,String> categor;
+    public HashMap<Product, List<String>> category = new HashMap<>();
 
     protected List<Product> products;
 
@@ -22,7 +22,6 @@ public abstract class Product {
 
     private void idgen(int Id) {
         this.ID = ++Id;
-
     }
 
     public String GetTitle() {
@@ -49,8 +48,14 @@ public abstract class Product {
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public double calc(int countItem){
+        double allcoount;
+        allcoount = countItem * price;
+        return allcoount;
+    }
+
+    public void Hashed(){
+
     }
 
     public void setDesc() {
