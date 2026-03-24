@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TransferQueue;
 
-public class Main {
+
+public class Main extends Product{
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
         int UsIn;
@@ -25,7 +26,7 @@ public class Main {
                 Prices = scan.nextDouble();
                 System.out.println("Введите описание");
                 desces = scan.next();
-
+            }else if (UsIn == 2){
             }
         }
 

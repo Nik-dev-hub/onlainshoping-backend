@@ -1,23 +1,26 @@
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 public abstract class Product {
-    private int ID;
+    private int ID = 0;
     private String title;
     private double price;
     private String desc;
-    public HashMap<Product, List<String>> category = new HashMap<>();
+    public HashMap<String, List<String>> category = new HashMap<String, List<String>>();
 
     protected List<Product> products;
 
-    public Product(int ID, String title, double price, String desc){
-        this.ID = ID;
+    public Product(String title, double price, String desc){
         this.price = price;
         this.title = title;
     }
 
     public Product() {
 
+    }
+
+    public Product(int id, String title, double price, String desc) {
     }
 
     private void idgen(int Id) {
@@ -54,8 +57,8 @@ public abstract class Product {
         return allcoount;
     }
 
-    public void Hashed(){
-
+    public void Hashed(String cat,String val){
+        category.put(cat, Collections.singletonList(title));
     }
 
     public void setDesc() {
