@@ -1,20 +1,24 @@
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public abstract class Product {
+    private int er = 0;
     private int ID = 0;
-    private String title;
+    private Product title;
     private double price;
     private String desc;
-    public HashMap<String, List<String>> category = new HashMap<String, List<String>>();
+    public HashMap<String, List<Product>> category = new HashMap<String, List<Product>>();
+    public List <Product> inp = new ArrayList<>();
 
     protected List<Product> products;
 
-    public Product(String title, double price, String desc){
+    public Product(Product title, double price, String desc){
         this.price = price;
         this.title = title;
+        this.desc = desc;
     }
+
 
     public Product() {
 
@@ -27,20 +31,20 @@ public abstract class Product {
         this.ID = ++Id;
     }
 
-    public String GetTitle() {
+    public Product GetTitle() {
         return this.title;
     }
 
-    public void SetTitle() {
-        this.title = title;
+    public void SetTitle(String title) {
+        this.title = this.title;
     }
 
     public double GetPrice() {
         return this.price;
     }
 
-    public void SetPrice() {
-        this.price = price;
+    public void SetPrice(double price) {
+        this.price = this.price;
     }
 
     public String getDesc() {
@@ -57,11 +61,20 @@ public abstract class Product {
         return allcoount;
     }
 
-    public void Hashed(String cat,String val){
-        category.put(cat, Collections.singletonList(title));
+    public void addproduct(String cat){
+        inp.add(er, title);
+        category.put(cat, inp);
+        er++;
     }
 
-    public void setDesc() {
+    public void ShowInfo(){
+        for(String key: category.keySet()){
+            List<Product> val = category.get(key);
+            System.out.println(val);
+        }
+    }
+
+    public void setDesc(String desces) {
         this.desc = desc;
 
     }

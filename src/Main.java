@@ -12,21 +12,47 @@ public class Main extends Product{
         String titles;
         double Prices;
         String desces;
+        String cater;
+        int cci;
+
+        GardenItem pr = new GardenItem();
+
 
         while (true){
-            System.out.println("Что вы хотите сделать?\n1-добавить новый продукт\n2-подсчёт стоимости\n0-закончить");
+            System.out.println("Что вы хотите сделать?\n1-добавить новый продукт\n2-подсчёт стоимости\n3-вывести всё\n0-закончить");
             UsIn = scan.nextInt();
+
             if(UsIn == 0){
                 break;
             }
+
             else if(UsIn == 1){
                 System.out.println("Введите название");
                 titles = scan.next();
+
                 System.out.println("Введите цену");
                 Prices = scan.nextDouble();
+
                 System.out.println("Введите описание");
                 desces = scan.next();
+
+                pr.SetTitle(titles);
+                pr.setDesc(desces);
+                pr.SetPrice(Prices);
+
+                System.out.println("Введите категорию");
+                cater = scan.next();
+
+                pr.addproduct(cater);
+
             }else if (UsIn == 2){
+                System.out.println("Введите количесво продуктов");
+                cci = scan.nextInt();
+
+                pr.calc(cci);
+
+            }else if (UsIn == 3){
+                pr.ShowInfo();
             }
         }
 

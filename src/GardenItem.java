@@ -1,10 +1,13 @@
-import java.util.HashMap;
-
 public class GardenItem extends Product{
-    public GardenItem(String title, String desc,double price){
+    public GardenItem(Product title,String desc, double Price){
         super();
-        this.SetPrice();
-        this.setDesc();
-        this.SetPrice();
+        this.SetTitle(String.valueOf(title));
+        this.setDesc(desc);
+        this.SetPrice(Price);
+
+    }
+
+    public GardenItem() {
+
     }
 }
