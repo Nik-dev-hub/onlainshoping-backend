@@ -1,17 +1,16 @@
-import java.util.HashMap;
 import java.util.List;
 
-public class electronic extends Product {
+public class Electronic extends Product {
     private List<String> categor;
 
-    public electronic(String title , String desc, Double Price){
+    public Electronic(String title , String desc, Double Price){
          super();
          this.setDesc(desc);
          this.SetPrice(Price);
          this.SetTitle(title);
     }
 
-    public electronic() {
+    public Electronic() {
 
     }
 }

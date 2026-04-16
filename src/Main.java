@@ -14,12 +14,13 @@ public class Main extends Product{
         String desces;
         String cater;
         int cci;
+        double usBal;
 
         GardenItem pr = new GardenItem();
 
 
         while (true){
-            System.out.println("Что вы хотите сделать?\n1-добавить новый продукт\n2-подсчёт стоимости\n3-вывести всё\n0-закончить");
+            System.out.println("Что вы хотите сделать?\n1-добавить новый продукт\n2-подсчёт стоимости\n3-вывести всё\n4 - сравнить (в разработке)\n5 - заплатить\n0-закончить");
             UsIn = scan.nextInt();
 
             if(UsIn == 0){
@@ -53,6 +54,11 @@ public class Main extends Product{
 
             }else if (UsIn == 3){
                 pr.ShowInfo();
+            }
+            else if (UsIn == 4){
+                System.out.println("Введите вашу сумму");
+                usBal = scan.nextDouble();
+                pr.pay(usBal);
             }
         }
 
