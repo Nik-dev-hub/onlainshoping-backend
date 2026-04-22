@@ -7,3 +7,10 @@
 2 - finanseble, 3 метода, абстрактные: 1 - double checkBalance(); 2 - bool hasEnoughMoney(double Money); 3 - String getFinansleStatus
 
 
+Добавить класс client or customer
+сделать абстракатным/обычным и т.д
+
+Переобразовать finanseble в клиенте
+создать новые объекты:
+1 - кошелёк(val)
+2 - client который может взаимодействовать с покупками и товарами

@@ -42,6 +42,10 @@ public abstract class Product implements Finanseble,Payable{
         this.title = this.title;
     }
 
+    public Product getTitle() {
+        return title;
+    }
+
     public double GetPrice() {
 
         return this.price;
@@ -137,6 +141,19 @@ public abstract class Product implements Finanseble,Payable{
     }
 
     @Override
+    public String toString() {
+        return "Product{" +
+                " ID=" + ID +
+                ", title=" + title +
+                ", price=" + price +
+                ", desc='" + desc + '\'' +
+                ", inp=" + inp +
+                ", pays=" + pays +
+                ", money=" + money +
+                '}';
+    }
+
+    @Override
     public String getFinansleStatus() {
         if(hasEnoughMoney() == true){
             return "all good";
@@ -150,14 +167,14 @@ public abstract class Product implements Finanseble,Payable{
     public boolean equals(Object obj) {
         if(this == obj) return true;
         if(obj == null) return false;
-        if (obj instanceof Product) return true;
+        if (this.getClass() != obj.getClass()) return false;
 
         Product other = (Product) obj;
-        return this.category.equals(other.category) && this.category == other.category;
+        return other.price == this.price;
     }
 
     @Override
     public int hashCode() {
-        return category.hashCode();
+        return Objects.hash(price);
     }
 }
