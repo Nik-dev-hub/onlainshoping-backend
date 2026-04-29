@@ -1,25 +1,26 @@
 import java.util.*;
+import java.util.Comparator;
 
-public abstract class Product implements Finanseble,Payable{
+public abstract class Product implements Finanseble, Payable, Comparable<Product> {
     private int er = 0;
     private int ID = 0;
-    private Product title;
+    private String title;
     private double price;
     private String desc;
     public HashMap<String, List<Product>> category = new HashMap<String, List<Product>>();
-    public List <Product> inp = new ArrayList<>();
+
+    public static List<Product> inp = new ArrayList<>();
     private boolean pays = false;
     private double money;
     Scanner scan = new Scanner(System.in);
 
     protected List<Product> products;
 
-    public Product(Product title, double price, String desc){
-        this.price = price;
+    public Product(String title, double price, String desc) {
         this.title = title;
+        this.price = price;
         this.desc = desc;
     }
-
 
     public Product() {
 
@@ -32,30 +33,23 @@ public abstract class Product implements Finanseble,Payable{
         this.ID = ++Id;
     }
 
-    public Product GetTitle() {
-
-        return this.title;
-    }
-
-    public void SetTitle(String title) {
-
-        this.title = this.title;
-    }
-
-    public Product getTitle() {
+    public String GetTitle() {
         return title;
     }
 
-    public double GetPrice() {
+    public void SetTitle(String title) {
+        this.title = title;
+    }
 
-        return this.price;
+    public double GetPrice() {
+        return price;
     }
 
     public void SetPrice(double price) {
-        this.price = this.price;
+        this.price = price;
     }
 
-    public String getDesc() {
+    public String GetDesc() {
 
         return desc;
     }
@@ -65,27 +59,30 @@ public abstract class Product implements Finanseble,Payable{
         return ID;
     }
 
-    public double calc(int countItem){
+    public double calc(int countItem) {
         double allcoount;
         allcoount = countItem * price;
         return allcoount;
     }
 
-    public void addproduct(String cat){
-        inp.add(er, title);
-        category.put(cat, inp);
-        er++;
+    public void addproduct(String cat) {
+        inp.add(this);
+
+        if (category.containsKey(cat) == false) {
+            category.put(cat, new ArrayList<Product>());
+        }
+        category.get(cat).add(this);
     }
 
-    public void ShowInfo(){
-        for(String key: category.keySet()){
+    public void ShowInfo() {
+        for (String key : category.keySet()) {
             List<Product> val = category.get(key);
             System.out.println(val);
         }
     }
 
     public void setDesc(String desces) {
-        this.desc = desc;
+        this.desc = desces;
     }
 
     @Override
@@ -99,16 +96,15 @@ public abstract class Product implements Finanseble,Payable{
     public void pay(double money) {
         this.money += money;
 
-        if(isPaid() == true){
+        if (isPaid() == true) {
             System.out.println("You are paid before");
             return;
         }
 
-        if (getFinalePrice() > this.money){
+        if (getFinalePrice() > this.money) {
             System.out.println("Not enough money");
             this.pays = false;
-        }
-        else{
+        } else {
             this.pays = true;
             this.money -= getFinalePrice();
             System.out.println("Payed");
@@ -127,14 +123,13 @@ public abstract class Product implements Finanseble,Payable{
 
     @Override
     public boolean hasEnoughMoney() {
-        if(isPaid() == true){
+        if (isPaid() == true) {
             System.out.println("you paid before");
             return true;
         }
-        if(getFinalePrice() > this.money){
+        if (getFinalePrice() > this.money) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
 
@@ -142,31 +137,25 @@ public abstract class Product implements Finanseble,Payable{
 
     @Override
     public String toString() {
-        return "Product{" +
-                " ID=" + ID +
-                ", title=" + title +
-                ", price=" + price +
-                ", desc='" + desc + '\'' +
-                ", inp=" + inp +
-                ", pays=" + pays +
-                ", money=" + money +
-                '}';
+        return String.format("ID: %d " +
+                " %s " +
+                " Цена: %s" +
+                " Описание: %s", ID, title, price, desc);
     }
 
     @Override
     public String getFinansleStatus() {
-        if(hasEnoughMoney() == true){
+        if (hasEnoughMoney() == true) {
             return "all good";
-        }
-        else {
+        } else {
             return "bad";
         }
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(this == obj) return true;
-        if(obj == null) return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
 
         Product other = (Product) obj;
@@ -177,4 +166,14 @@ public abstract class Product implements Finanseble,Payable{
     public int hashCode() {
         return Objects.hash(price);
     }
+
+    @Override
+    public int compareTo(Product other) {
+        return Double.compare(this.price, other.price);
+    }
+
+    public static Comparator<Product> nameComp = Comparator.comparing(Product::GetTitle);
+
+    public static Comparator<Product> priceC = (p1, p2) ->
+            Double.compare(p2.GetPrice(), p1.GetPrice());
 }

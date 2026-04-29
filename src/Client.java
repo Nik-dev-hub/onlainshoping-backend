@@ -8,7 +8,7 @@ public class Client extends Person{
     private int count;
 
     public void buy(Product p) {
-        System.out.printf("Сколько %s вы хотите купить?" ,p.getTitle());
+        System.out.printf("Сколько %s вы хотите купить?" ,p.GetTitle());
         Scanner scan = new Scanner(System.in);
         count = scan.nextInt();
         totalCost = p.calc(count);
