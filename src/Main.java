@@ -20,12 +20,13 @@ public class Main extends Product{
         int usAg;
         int usAg1;
         int resSr;
+        Client user = new Client();
 
         GardenItem pr = new GardenItem();
 
 
         while (true){
-            System.out.println("Что вы хотите сделать?\n1-добавить новый продукт\n2-подсчёт стоимости\n3-вывести категории\n4 - сравнить\n5 - выдать список товаров\n0-закончить");
+            System.out.println("Что вы хотите сделать?\n1-добавить новый продукт\n2-подсчёт стоимости\n3-вывести категории\n4 - сравнить\n5 - выдать список товаров\n6 - купить товар\n0-закончить");
             UsIn = scan.nextInt();
 
             if(UsIn == 0){
@@ -95,7 +96,33 @@ public class Main extends Product{
                 if(usSort == 1){
                     Collections.reverse(inp);
                 }
-                inp.forEach(System.out::println);
+                inp.stream()
+                        .forEach(System.out::println);
+            }
+            else if(UsIn == 6){
+                if (Product.inp.isEmpty()) {
+                    System.out.println("в товарах пусто");
+                    break;
+                }
+             for (int i = 0; i < Product.inp.size(); i++) {
+                    System.out.println(i + ": " + Product.inp.get(i).GetTitle() + Product.inp.get(i).GetPrice() );
+                }
+                System.out.print("Выберите номер товара: ");
+                int productIndex = scan.nextInt();
+                if (productIndex >= 0) {
+                    Product selected = Product.inp.get(productIndex);
+
+                    user.buy(selected);
+
+                    System.out.println("Применить промокод на скидку? (1 - Да, 0 - Нет)");
+                    int in = scan.nextInt();
+                    if (in == 1) {
+                        System.out.print("Введите % скидки: ");
+                        user.useDiscount(scan.nextInt());
+                        }
+                } else {
+                    System.out.println("Неверный индекс");
+                }
             }
         }
 

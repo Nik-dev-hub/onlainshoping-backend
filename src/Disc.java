@@ -1,3 +1,3 @@
-public interface Sale {
-    double Sellary(Double cost);
+public interface Disc {
+    double Sellary(int proc,double cost);
 }

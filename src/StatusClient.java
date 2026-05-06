@@ -1,4 +1,4 @@
-public enum Status {
+public enum StatusClient {
     PAYED,
     SELECTED,
     NOTHING
