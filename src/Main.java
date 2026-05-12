@@ -21,12 +21,15 @@ public class Main extends Product{
         int usAg1;
         int resSr;
         Client user = new Client();
+        int productIndex;
+        double fins;
 
         GardenItem pr = new GardenItem();
 
 
         while (true){
-            System.out.println("Что вы хотите сделать?\n1-добавить новый продукт\n2-подсчёт стоимости\n3-вывести категории\n4 - сравнить\n5 - выдать список товаров\n6 - купить товар\n0-закончить");
+            System.out.println("Что вы хотите сделать?\n1-добавить новый продукт\n2-подсчёт стоимости\n3-вывести категории" +
+                    "\n4 - сравнить\n5 - выдать список товаров\n6 - купить товар\n7 - ввести бюджет\n0-закончить");
             UsIn = scan.nextInt();
 
             if(UsIn == 0){
@@ -104,25 +107,30 @@ public class Main extends Product{
                     System.out.println("в товарах пусто");
                     break;
                 }
-             for (int i = 0; i < Product.inp.size(); i++) {
+                for (int i = 0; i < Product.inp.size(); i++) {
                     System.out.println(i + ": " + Product.inp.get(i).GetTitle() + Product.inp.get(i).GetPrice() );
                 }
                 System.out.print("Выберите номер товара: ");
-                int productIndex = scan.nextInt();
+                productIndex = scan.nextInt();
                 if (productIndex >= 0) {
                     Product selected = Product.inp.get(productIndex);
 
                     user.buy(selected);
 
-                    System.out.println("Применить промокод на скидку? (1 - Да, 0 - Нет)");
+                    System.out.println("применить промокод на скидку? 1 - да, 0 - нет");
                     int in = scan.nextInt();
                     if (in == 1) {
-                        System.out.print("Введите % скидки: ");
+                        System.out.print("введите % скидки: ");
                         user.useDiscount(scan.nextInt());
                         }
                 } else {
-                    System.out.println("Неверный индекс");
+                    System.out.println("неверный индекс");
                 }
+            }
+            else if(UsIn == 7){
+                System.out.println("введите ваш бюджет: ");
+                fins = scan.nextDouble();
+                user.setWallet(fins);
             }
         }
 

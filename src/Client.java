@@ -40,7 +40,7 @@ public class Client extends Person {
 
     @Override
     public String getFinansleStatus() {
-        System.out.println("Статус покупки - " + status);
+        System.out.println("Статус покупки = " + status);
         return " ";
     }
 
