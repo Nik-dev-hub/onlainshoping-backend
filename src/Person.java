@@ -1,32 +1,21 @@
 public abstract class Person implements Finanseble {
-    private double wallet;
+    private double wallete;
 
-    public void setWallet(double wallet) {
-        this.wallet = wallet;
+    public void setWallete(double wallete) {
+        this.wallete = wallete;
     }
 
-    void wallet_paid(double bal){
-        this.wallet -= bal;
-    }
-
-    @Override
-    public double checkBalance() {
-        return wallet;
-    }
-
-    public double getWallet() {
-        return wallet;
+    public void depWallete(double amount){
+        this.wallete -= amount;
     }
 
     @Override
-    public boolean hasEnoughMoney(){
-        return false;
+    public double checkBalance(){
+        return wallete;
     }
 
     @Override
-    public String getFinansleStatus() {
-        System.out.printf("Ваш текущий баланс: %s, можете ли вы оплатить покупку(false - нет, true - да): %s ",checkBalance(),hasEnoughMoney());
-        return "close";
+    public boolean hasEnoughMoney(double amount){
+        return wallete >= amount;
     }
-
 }

@@ -1,5 +1,4 @@
-public abstract interface Payable {
-    double getFinalePrice();
-    void pay(double money);
+public interface Payable {
+    void pay(double amount);
     boolean isPaid();
 }

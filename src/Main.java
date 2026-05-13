@@ -16,7 +16,7 @@ public class Main extends Product{
         int cci;
         double usBal;
         int usSort;
-        List<String> sortedCats = new ArrayList<>(pro.category.keySet());
+        List<String> sortedCats = new ArrayList<>(pro.categories.keySet());
         int usAg;
         int usAg1;
         int resSr;

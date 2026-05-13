@@ -1,179 +1,69 @@
-import java.util.*;
-import java.util.Comparator;
+import java.util.Objects;
 
-public abstract class Product implements Finanseble, Payable, Comparable<Product> {
-    private int er = 0;
-    private int ID = 0;
+// Отвечает ТОЛЬКО за свойства абстрактного товара
+public abstract class Product implements Comparable<Product> {
+    private final int id;
     private String title;
     private double price;
     private String desc;
-    public HashMap<String, List<Product>> category = new HashMap<String, List<Product>>();
 
-    public static List<Product> inp = new ArrayList<>();
-    private boolean pays = false;
-    private double money;
-    Scanner scan = new Scanner(System.in);
-
-    protected List<Product> products;
+    private static int idCounter = 0;
 
     public Product(String title, double price, String desc) {
+        this.id = ++ idCounter;
         this.title = title;
         this.price = price;
         this.desc = desc;
     }
 
-    public Product() {
-
+    public int getId() {
+        return id;
     }
-
-    public Product(int id, String title, double price, String desc) {
-    }
-
-    private void idgen(int Id) {
-        this.ID = ++Id;
-    }
-
-    public String GetTitle() {
+    public String getTitle() {
         return title;
     }
-
-    public void SetTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
-
-    public double GetPrice() {
+    public double getPrice() {
         return price;
     }
-
-    public void SetPrice(double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
-
-    public String GetDesc() {
-
+    public String getDesc() {
         return desc;
     }
-
-    public int getID() {
-
-        return ID;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
-
-    public double calc(int countItem) {
-        double allcoount;
-        allcoount = countItem * price;
-        return allcoount;
-    }
-
-    public void addproduct(String cat) {
-        inp.add(this);
-
-        if (category.containsKey(cat) == false) {
-            category.put(cat, new ArrayList<Product>());
-        }
-        category.get(cat).add(this);
-    }
-
-    public void ShowInfo() {
-        for (String key : category.keySet()) {
-            List<Product> val = category.get(key);
-            System.out.println(val);
-        }
-    }
-
-    public void setDesc(String desces) {
-        this.desc = desces;
+    public double calculateTCost(int countItem) {
+        return countItem * this.price;
     }
 
     @Override
-    public double getFinalePrice() {
-        int pp;
-        pp = scan.nextInt();
-        return calc(pp);
-    }
-
-    @Override
-    public void pay(double money) {
-        this.money += money;
-
-        if (isPaid() == true) {
-            System.out.println("You are paid before");
-            return;
-        }
-
-        if (getFinalePrice() > this.money) {
-            System.out.println("Not enough money");
-            this.pays = false;
-        } else {
-            this.pays = true;
-            this.money -= getFinalePrice();
-            System.out.println("Payed");
-        }
-    }
-
-    @Override
-    public boolean isPaid() {
-        return pays;
-    }
-
-    @Override
-    public double checkBalance() {
-        return this.money;
-    }
-
-    @Override
-    public boolean hasEnoughMoney() {
-        if (isPaid() == true) {
-            System.out.println("you paid before");
-            return true;
-        }
-        if (getFinalePrice() > this.money) {
-            return false;
-        } else {
-            return true;
-        }
-
-    }
-
-    @Override
-    public String toString() {
-        return String.format("ID: %d " +
-                " %s " +
-                " Цена: %s" +
-                " Описание: %s", ID, title, price, desc);
-    }
-
-    @Override
-    public String getFinansleStatus() {
-        if (hasEnoughMoney() == true) {
-            return "all good";
-        } else {
-            return "bad";
-        }
+    public int compareTo(Product other) {
+        return Double.compare(this.price,other.price);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null) return false;
-        if (this.getClass() != obj.getClass()) return false;
-
+        if (obj == null || getClass() != obj.getClass()) return false;
         Product other = (Product) obj;
-        return other.price == this.price;
+        return Double.compare(other.price, this.price) == 0 && Objects.equals(title, other.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(price);
+        return Objects.hash(title, price);
     }
 
     @Override
-    public int compareTo(Product other) {
-        return Double.compare(this.price, other.price);
+    public String toString() {
+        return String.format("ID: %d" +
+                " %s" +
+                " Цена: %.2f" +
+                " Описание: %s", id, title, price, desc);
     }
-
-    public static Comparator<Product> nameComp = Comparator.comparing(Product::GetTitle);
-
-    public static Comparator<Product> priceC = (p1, p2) ->
-            Double.compare(p2.GetPrice(), p1.GetPrice());
 }
